@@ -5,13 +5,15 @@ module AuthorizedKeys
     attr_accessor :options, :content, :comment
 
     def initialize(key_string)
-      self.options, self.content, self.comment = *Components.extract(key_string)
+      options, self.content, self.comment = *Components.extract(key_string)
 
       raise "Bad key" unless self.content
+
+      self.options = options.split(/,/)
     end
 
     def to_s
-      [options, content, comment].join(" ")
+      [options.join(','), content, comment].join(" ")
     end
 
   private

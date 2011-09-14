@@ -2,9 +2,15 @@ require 'authorized_keys/key'
 
 describe AuthorizedKeys::Key do
   let(:options) do
-    'command="/usr/local/bin command argument",' +
-      'no-port-forwarding,no-X11-forwarding,no-agent-forwarding'
+    %w[
+      command="/usr/local/bin/command\ argument"
+      no-port-forwarding
+      no-X11-forwarding
+      no-agent-forwarding
+    ]
   end
+
+  let(:options_string) { options.join(',') }
 
   let(:content) do
     'ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAzl2OUiWu4GzVdNXBwMCK460uEUZSvuIsccmr15d' +
@@ -19,7 +25,7 @@ describe AuthorizedKeys::Key do
     "user@host.com - 123"
   end
 
-  let(:key) { [options, content, comment].compact.join(" ") }
+  let(:key) { [options_string, content, comment].compact.join(" ") }
 
   describe '#initialize' do
     subject { AuthorizedKeys::Key.new(key) }
@@ -40,16 +46,16 @@ describe AuthorizedKeys::Key do
     describe '.extract' do
       subject { AuthorizedKeys::Key::Components.extract(key) }
 
-      it { should == [options, content, comment] }
+      it { should == [options_string, content, comment] }
 
       context "with missing options" do
-        let(:options) { }
+        let(:options) { [] }
         it { should == ["", content, comment] }
       end
 
       context "with missing comment" do
         let(:comment) { }
-        it { should == [options, content, ""] }
+        it { should == [options_string, content, ""] }
       end
 
       context "with missing content" do
