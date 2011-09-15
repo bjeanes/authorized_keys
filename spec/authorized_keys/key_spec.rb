@@ -51,6 +51,8 @@ describe AuthorizedKeys::Key do
       context "with missing options" do
         let(:options) { [] }
         it { should == ["", content, comment] }
+
+        its(:to_s) { should_not =~ /^\s|\s$/ }
       end
 
       context "with missing comment" do
@@ -61,6 +63,8 @@ describe AuthorizedKeys::Key do
       context "with missing content" do
         let(:content) { }
         it { should == [] }
+
+        its(:to_s) { should_not =~ /^\s|\s$/ }
       end
     end
   end

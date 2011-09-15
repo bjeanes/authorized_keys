@@ -13,7 +13,8 @@ module AuthorizedKeys
     end
 
     def to_s
-      [options.join(','), content, comment].join(" ")
+      options = self.options.join(",") unless self.options.empty?
+      [options, content, comment].compact.join(" ")
     end
 
   private
