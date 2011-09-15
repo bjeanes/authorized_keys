@@ -61,7 +61,19 @@ describe AuthorizedKeys::File do
     end
 
     describe "#remove" do
+      it "deletes the key from the file" do
+        key1, key2 = fixture_key(1), fixture_key(2)
 
+        file.open
+        file.puts [key1, key2]
+        file.close
+
+        subject.remove(key1)
+
+        new_file = File.open(file.path, 'r') # Need to get new handle
+        new_file.read.should == key2
+        new_file.close
+      end
     end
   end
 end

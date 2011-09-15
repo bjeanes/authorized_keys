@@ -27,8 +27,9 @@ describe AuthorizedKeys::Key do
 
   let(:key) { [options_string, content, comment].compact.join(" ") }
 
+  subject { AuthorizedKeys::Key.new(key) }
+
   describe '#initialize' do
-    subject { AuthorizedKeys::Key.new(key) }
 
     its(:options) { should == options }
     its(:content) { should == content }
@@ -39,6 +40,16 @@ describe AuthorizedKeys::Key do
     context "with bad key content" do
       let(:content) { "blah" }
       it { lambda { subject }.should raise_error("Bad key") }
+    end
+  end
+
+  describe "#==" do
+    it "returns true for keys with the same content" do
+      should == AuthorizedKeys::Key.new(content)
+    end
+
+    it "returns true for a string that has the same key content" do
+      should == content
     end
   end
 

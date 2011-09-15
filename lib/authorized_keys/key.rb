@@ -17,6 +17,11 @@ module AuthorizedKeys
       [options, content, comment].compact.join(" ")
     end
 
+    def ==(key)
+      key = self.class.new(key) if key.is_a?(String)
+      content == key.content
+    end
+
   private
 
     module Components
