@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = [%q{Bodaniel Jeanes}]
   s.date = %q{2011-09-15}
-  s.description = %q{Library to manage authorized_keys file}
+  s.description = %q{Library to manage authorized_keys files}
   s.email = %q{me@bjeanes.com}
   s.extra_rdoc_files = [
     "LICENSE.txt",
@@ -28,13 +28,21 @@ Gem::Specification.new do |s|
     "authorized_keys.gemspec",
     "lib/authorized_keys.rb",
     "lib/authorized_keys/file.rb",
-    "lib/authorized_keys/key.rb"
+    "lib/authorized_keys/key.rb",
+    "spec/authorized_keys/file_spec.rb",
+    "spec/authorized_keys/key_spec.rb",
+    "spec/fixtures/keys/1.pub",
+    "spec/fixtures/keys/2.pub",
+    "spec/fixtures/keys/3.pub",
+    "spec/fixtures/keys/4.pub",
+    "spec/spec_helper.rb",
+    "spec/support/fixtures.rb"
   ]
   s.homepage = %q{http://github.com/bjeanes/authorized_keys}
   s.licenses = [%q{MIT}]
   s.require_paths = [%q{lib}]
   s.rubygems_version = %q{1.8.6}
-  s.summary = %q{Library to manage authorized_keys file}
+  s.summary = %q{Library to manage authorized_keys files}
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
