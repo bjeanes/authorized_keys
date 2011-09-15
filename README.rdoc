@@ -1,9 +1,17 @@
 = authorized_keys
 
-Description goes here.
+Library for managing `authorized_keys` files.
+
+I have several projects which all ended up needing to manage authorized_keys, so I decided to just write a separate OSS library to leverage instead of duplicating that logic everywhere.
+
+Hopefully it's helpful to somebody else... Enjoy! :)
+
+== Caveats
+
+* It doesn't do anything special to lock modifications to the file, so you wouldn't want to have multiple processes trying to modify this file.
 
 == Contributing to authorized_keys
- 
+
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it
 * Fork the project
@@ -14,6 +22,5 @@ Description goes here.
 
 == Copyright
 
-Copyright (c) 2011 Bodaniel Jeanes. See LICENSE.txt for
-further details.
+Copyright (c) 2011 Bodaniel Jeanes. See LICENSE.txt for further details.
 
