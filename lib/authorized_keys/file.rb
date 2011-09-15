@@ -12,7 +12,7 @@ module AuthorizedKeys
     def add(key)
       key = Key.new(key) if key.is_a?(String)
 
-      modify do |file|
+      modify 'a+' do |file|
         file.puts key
       end
     end
@@ -20,10 +20,10 @@ module AuthorizedKeys
     def remove(key)
       key = Key.new(key) if key.is_a?(String)
 
-      ::File.open(location, 'r') do |file|
+      modify 'r' do |file|
         ::File.unlink(location)
 
-        ::File.open(location, 'w') do |new_file|
+        modify 'w' do |new_file|
           file.each do |line|
             new_file.puts line unless key == Key.new(line)
             new_file.flush
@@ -33,8 +33,8 @@ module AuthorizedKeys
     end
 
   private
-    def modify(&block)
-      ::File.open(location, 'a+', &block)
+    def modify(mode, &block)
+      ::File.open(location, mode, &block)
     end
   end
 end
