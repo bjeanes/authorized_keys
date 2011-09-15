@@ -21,11 +21,11 @@ module AuthorizedKeys
 
     module Components
       OPTIONS = '(.*?)\\s*'
-      CONTENT = '(ssh-(?:[dr]sa)\\s.*==?)'
-      COMMENT = '\\s*(.*)'
+      CONTENT = '(ssh-(?:[dr]sa)\\s.*?)'
+      COMMENT = '(?:\\s+(.*))?'
 
       def self.extract(key_string)
-        key_string.scan(/^#{OPTIONS}#{CONTENT}#{COMMENT}$/).flatten
+        key_string.scan(/^#{OPTIONS}#{CONTENT}#{COMMENT}$/).flatten.map(&:to_s)
       end
     end
   end

@@ -41,6 +41,20 @@ describe AuthorizedKeys::File do
         file.read.should == key
       end
 
+      it "appends the key to any existing keys" do
+        key1, key2 = fixture_key(1), fixture_key(2)
+
+        file.open
+        file.write(key1)
+        file.close
+
+        subject.add(key2)
+
+        file.open
+        file.rewind
+        file.read.should == [key1, key2].join("")
+      end
+
       it "raises an exception for a bad key" do
         lambda { subject.add("foo bar") }.should raise_error "Bad key"
       end

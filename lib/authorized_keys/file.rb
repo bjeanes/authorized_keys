@@ -19,7 +19,7 @@ module AuthorizedKeys
 
   private
     def modify(&block)
-      ::File.open(location, 'w', &block)
+      ::File.open(location, 'a+', &block)
     end
   end
 end
