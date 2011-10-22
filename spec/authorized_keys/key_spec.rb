@@ -39,7 +39,17 @@ describe AuthorizedKeys::Key do
 
     context "with bad key content" do
       let(:content) { "blah" }
-      it { lambda { subject }.should raise_error("Bad key") }
+      it { lambda { subject }.should raise_error(AuthorizedKeys::BadKeyError, "Bad key") }
+
+      describe AuthorizedKeys::BadKeyError do
+        it "has a reference to the key content" do
+          begin
+            subject
+          rescue => error
+            error.key.should == key
+          end
+        end
+      end
     end
   end
 

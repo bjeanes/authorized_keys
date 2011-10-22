@@ -56,7 +56,7 @@ describe AuthorizedKeys::File do
       end
 
       it "raises an exception for a bad key" do
-        lambda { subject.add("foo bar") }.should raise_error "Bad key"
+        lambda { subject.add("foo bar") }.should raise_error(AuthorizedKeys::BadKeyError, "Bad key")
       end
     end
 

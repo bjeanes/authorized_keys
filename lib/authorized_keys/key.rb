@@ -1,13 +1,22 @@
 require "authorized_keys"
 
 module AuthorizedKeys
+  class AuthorizedKeys::BadKeyError < StandardError
+    attr_accessor :key
+
+    def initialize(key)
+      super("Bad key")
+      self.key = key
+    end
+  end
+
   class Key
     attr_accessor :options, :content, :comment
 
     def initialize(key_string)
       options, self.content, self.comment = *Components.extract(key_string)
 
-      raise "Bad key" unless self.content
+      raise BadKeyError.new(key_string) unless self.content
 
       self.options = options.split(/,/)
     end
