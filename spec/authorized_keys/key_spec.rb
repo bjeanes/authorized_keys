@@ -29,8 +29,26 @@ describe AuthorizedKeys::Key do
 
   subject { AuthorizedKeys::Key.new(key) }
 
-  describe '#initialize' do
+  context "with RSA key" do
+    it { lambda { subject }.should_not raise_error }
+  end
 
+  context "with DSS key" do
+    let(:content) do
+      'ssh-dss AAAAB3NzaC1kc3MAAACBAKzmLlMEKSrOnGIUCV6cU6l56ves14l6gY/6j8B7weZJxW' +
+        '84yEBYCXUGxYybV0JfBsQ85nSxRqFKih1xjU9SyRVK3fFggffe30gFT0vDGy/Zj6aOFrF8B2RK' +
+        '59VaEyWzZQqKlhtS2M5hBN7JRGKc3haBp+G9fehm42AueAHQBOPXAAAAFQDTBZ3XsR50a3ApSO' +
+        'gqF+3JU+Ey6QAAAIEAlT0VLqGgprONWAupcKBOgaYOBLoDdqsXax4E54cn49d/wyi68NU9RJWq' +
+        'zNCwpNtFWJJ6SCcJXv5vajBmf2WI8LkaCwq4/oyhRD5QR55uro1zWj0pPA5YN0o7EafYZH1HIO' +
+        '+/vM/fbQFd6EGuBbFnortSQgzjHlr8J1UL7f0WbMsAAACAO5A/xv1aQ8uLQQe60VBZRm3pQjb1' +
+        'RYB6ZN63Ts/VSw7TNW3/l8+0pqZkarUHXNDxqwSsb9DozgooeZPqM8bpB+t1zM/7f1Be+yaYyu' +
+        '3OpaPdceJZGLIcXXbytPw+utRcQPrxucBngukL8TmazZvcfrEONdDS+CK1D/ZqtmjtXPU='
+    end
+
+    it { lambda { subject }.should_not raise_error(AuthorizedKeys::BadKeyError) }
+  end
+
+  describe '#initialize' do
     its(:options) { should == options }
     its(:content) { should == content }
     its(:comment) { should == comment }

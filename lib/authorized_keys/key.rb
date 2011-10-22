@@ -35,7 +35,7 @@ module AuthorizedKeys
 
     module Components
       OPTIONS = '(.*?)\\s*'
-      CONTENT = '(ssh-(?:[dr]sa)\\s.*?)'
+      CONTENT = '(ssh-(?:dss|rsa)\\s.*?)'
       COMMENT = '(?:\\s+(.*))?'
 
       def self.extract(key_string)
