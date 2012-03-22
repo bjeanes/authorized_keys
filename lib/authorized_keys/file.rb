@@ -32,6 +32,16 @@ module AuthorizedKeys
       end
     end
 
+    def keys
+      list = []
+      ::File.open location, 'r' do |file|
+        file.each do |line|
+          list.push( AuthorizedKeys::Key.new line.chomp)
+        end
+      end
+      list
+    end
+
   private
     def modify(mode, &block)
       ::File.open(location, mode, &block)
