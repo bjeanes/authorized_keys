@@ -75,5 +75,15 @@ describe AuthorizedKeys::File do
         new_file.close
       end
     end
+    describe "#keys" do
+      it "get the keys from the file" do
+        key1, key2 = fixture_key(1), fixture_key(2)
+
+        file.open
+        file.puts [key1, key2]
+        file.close
+        subject.keys.size.should eq 2
+      end
+    end
   end
 end
